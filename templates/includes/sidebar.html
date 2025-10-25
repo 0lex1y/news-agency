@@ -1,5 +1,15 @@
-<ul class="sidebar">
+<ul class="sidebar-menu">
+  {% if user.is_authenticated %}
+  	<p><a href="#">Username: {{ user.username }}</a></p>
+    {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+  {% endif %}
+  <li><form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %} {# Дуже важливо для POST-форм в Django! #}
+    <button type="submit" class="btn btn-link">Logout</button>
+</form></li>
+  <br>
   <li><a href="{% url 'news:index' %}">Home</a></li>
   <li><a href="#">All news</a></li>
-  <li><a href="#">Home</a></li>
+  <li><a href="#">All authors</a></li>
 </ul>

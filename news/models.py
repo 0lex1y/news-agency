@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
+from django.urls import reverse
+
 
 class Topics(models.Model):
     name = models.CharField(max_length=255)
@@ -18,6 +20,7 @@ class Newspaper(models.Model):
 
     def __str__(self):
         return f'{self.title} ({self.topic} - {self.published_date})'
+
 
 
 class Redactor(AbstractUser):

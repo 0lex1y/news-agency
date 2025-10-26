@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block content %}
-{% if newspapers %}
-<ul>
-  {% for newspaper in newspapers %}
-  <li>{{ newspaper.name }} - {{ newspaper.description }}</li>
-  {% endfor %}
-</ul>
+  {% if newspapers %}
+    <a class="btn btn-primary text-justify text-lg-right" href="{% url 'news:news_create' %}">Create News</a>
+    <ul>
+      {% for newspaper in newspapers %}
+        <li><a href="{% url 'news:news_detail' pk=newspaper.id %}">{{ newspaper.title }}</a></li>
+      {% endfor %}
+    </ul>
   {% else %}
-  <h1>No newspapers</h1>
-{% endif %}
+    <h1>No newspapers</h1>
+  {% endif %}
 {% endblock %}

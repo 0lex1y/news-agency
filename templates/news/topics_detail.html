@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>
+    Topic: {{ topics.name }}
+    <a class="btn btn-primary float-end" href="{% url 'news:topics_update' pk=topics.id %}">Update</a>
+    <a class="btn btn-danger float-end" href="{% url 'news:topics_delete' pk=topics.id %}">Delete</a>
+  </h1>
+  <hr>
+
+  <h3>Articles in this topic:</h3>
+  <ul>
+    {% for news in topics.newspapers.all %}
+      <li>
+        <a href="{% url 'news:news_detail' pk=news.id %}">{{ news.title }}</a>
+        ({{ news.published_date|date:"d M Y" }})
+      </li>
+    {% empty %}
+      <li>No news found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

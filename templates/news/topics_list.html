@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>
+    All Topics
+    <a class="btn btn-primary float-end" href="{% url 'news:topics_create' %}">Create</a>
+  </h1>
+  <hr>
+
+  {% if topics_list %}
+    {% for topic in topics_list %}
+      <p>
+        <a href="{% url 'news:topics_detail' pk=topic.id %}">{{ topic.name }}</a>
+      </p>
+    {% empty %}
+      <p>No topics yet.</p>
+    {% endfor %}
+  {% else %}
+    <p>No topics available.</p>
+  {% endif %}
+{% endblock %}

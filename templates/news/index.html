@@ -5,14 +5,29 @@
 {% endblock %}
 
 {% block content %}
+
   {% if newspapers %}
-    <a class="btn btn-primary text-justify text-lg-right" href="{% url 'news:news_create' %}">Create News</a>
-    <ul>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>All news</h2>
+      <a class="btn btn-primary" href="{% url 'news:news_create' %}">Create News</a>
+    </div>
+    <ul class="list-group mt-3">
+      <form method="get">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search...">
+        <button type="submit">Search</button>
+      </form>
       {% for newspaper in newspapers %}
-        <li><a href="{% url 'news:news_detail' pk=newspaper.id %}">{{ newspaper.title }}</a></li>
+        <li class="list-group-item">
+          <a href="{% url 'news:news_detail' pk=newspaper.id %}">
+            {{ newspaper.title }}
+          </a>
+        </li>
       {% endfor %}
     </ul>
   {% else %}
-    <h1>No newspapers</h1>
+    <div class="alert alert-warning">
+      No newspapers
+    </div>
+
   {% endif %}
 {% endblock %}

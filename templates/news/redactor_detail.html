@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h1>
+    {{ redactor.username }}
+    <a class="btn btn-primary float-end ms-2" href="{% url 'news:redactors_update' pk=redactor.id %}">Update</a>
+    <a class="btn btn-danger float-end" href="{% url 'news:redactors_delete' pk=redactor.id %}">Delete</a>
+  </h1>
+  <hr>
+
+  <p>Username: {{ redactor.username }}</p>
+  <p>Name: {{ redactor.first_name }} {{ redactor.last_name }}</p>
+  <p>Email: {{ redactor.email }}</p>
+  <p>Experience: {{ redactor.years_of_experience }}</p>
+
+{% endblock %}

@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>
-    Title:{{ newspaper.title }}
-    <ul>
-      <li class="btn btn-primary"><a href="{% url 'news:news_update' pk=newspaper.id %}">Update</a></li>
-      <li class="btn btn-primary"><a href="{% url 'news:news_delete' pk=newspaper.id %}">Delete</a></li>
-    </ul>
-  </h1>
-  {{ newspaper.topic }}
-  {{ newspaper.content }}
-  <br>
-  <hr>
-  {{ newspaper.published_date }}
+  <div class="card mt-3">
+    <div class="card-body">
+      <h2 class="card-title">
+        {{ newspaper.title }}
+        <a class="btn btn-danger btn-sm float-end ms-2" href="{% url 'news:news_delete' pk=newspaper.id %}">Delete</a>
+        <a class="btn btn-primary btn-sm float-end" href="{% url 'news:news_update' pk=newspaper.id %}">Update</a>
+      </h2>
+
+      <h6 class="text-muted mb-3">
+        {{ newspaper.topic }} | {{ newspaper.published_date|date:"d M Y, H:i" }}
+      </h6>
+
+      <p class="card-text">{{ newspaper.content }}</p>
+    </div>
+  </div>
 {% endblock %}

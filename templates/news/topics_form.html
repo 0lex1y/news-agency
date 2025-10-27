@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
-{% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
-{% block content %}
-  <div class="card mt-3">
-  <div class="card-body">
-    <h2 class="card-title">
-      {% if object %}Update Topic{% else %}Create Topic{% endif %}
-    </h2>
+{% block title %}
+  {% if topic.id %}Update Topic{% else %}Create Topic{% endif %}
+{% endblock %}
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <input class="btn btn-primary mt-2" type="submit" value="Submit">
-    </form>
-  </div>
-</div>
+{% block content %}
+<h1>
+  {% if topic.id %}Update Topic{% else %}Create Topic{% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">
+        {% if topic.id %}Update{% else %}Create{% endif %}
+    </button>
+    <a href="{% url 'news:topics_list' %}" class="btn btn-secondary mt-2">Cancel</a>
+</form>
 {% endblock %}

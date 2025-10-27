@@ -1,22 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Topic: {{ topic.name }}{% endblock %}
 
 {% block content %}
-  <h1>
-    Topic: {{ topics.name }}
-    <a class="btn btn-primary float-end" href="{% url 'news:topics_update' pk=topics.id %}">Update</a>
-    <a class="btn btn-danger float-end" href="{% url 'news:topics_delete' pk=topics.id %}">Delete</a>
-  </h1>
-  <hr>
+<div class="card mb-4">
+  <div class="card-body">
+    <h3 class="card-title d-flex justify-content-between align-items-center">
+      Topic: {{ topics.name }}
+      <span>
+        <a href="{% url 'news:topics_update' pk=topics.id %}" class="btn btn-sm btn-primary me-2">Update</a>
+        <a href="{% url 'news:topics_delete' pk=topics.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </span>
+    </h3>
 
-  <h3>Articles in this topic:</h3>
-  <ul>
-    {% for news in topics.newspapers.all %}
-      <li>
-        <a href="{% url 'news:news_detail' pk=news.id %}">{{ news.title }}</a>
-        ({{ news.published_date|date:"d M Y" }})
-      </li>
-    {% empty %}
-      <li>No news found.</li>
-    {% endfor %}
-  </ul>
+    <hr>
+
+    <h5>News in this topic:</h5>
+    {% if topics.newspapers.all %}
+      <ul class="list-group">
+        {% for news in topics.newspapers.all %}
+          <li class="list-group-item">
+            <a href="{% url 'news:news_detail' pk=news.id %}">{{ news.title }}</a>
+            <small class="text-muted">| Published: {{ news.published_date|date:"d M Y" }}</small>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="alert alert-warning mt-2">No news found in this topic.</div>
+    {% endif %}
+
+  </div>
+</div>
 {% endblock %}

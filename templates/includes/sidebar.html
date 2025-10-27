@@ -1,28 +1,16 @@
-{#<ul class="sidebar-nav list-group">#}
-{#  {% if user.is_authenticated %}#}
-{#    <li class="list-group-item">#}
-{#      <a href="#">Username: {{ user.username }}</a>#}
-{#    </li>#}
-{#    <li class="list-group-item">#}
-{#      <form action="{% url 'logout' %}" method="post" style="display: inline;">#}
-{#        {% csrf_token %} {# Дуже важливо для POST-форм в Django! #}
-{#        <button type="submit" class="btn btn-link">Logout</button>#}
-{#      </form>#}
-{#    </li>#}
-{#  {% else %}#}
-{#    <li class="list-group-item">#}
-{#      <a href="{% url 'login' %}">Login</a>#}
-{#    </li>#}
-{#  {% endif %}#}
-{##}
-{#  <br>#}
-{#  <li class="list-group-item">#}
-{#    <a href="{% url 'news:index' %}">Home</a>#}
-{#  </li>#}
-{#  <li class="list-group-item">#}
-{#    <a href="{% url 'news:topics_list' %}">Topics</a>#}
-{#  </li>#}
-{#  <li class="list-group-item">#}
-{#    <a href="{% url 'news:redactors_list' %}">Redactors</a>#}
-{#  </li>#}
-{#</ul>#}
+<div class="mb-3">
+  {% if request.user.is_authenticated %}
+    <p>Welcome, {{ request.user.username }}!</p>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-link">Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Login</a>
+  {% endif %}
+</div>
+<div class="list-group">
+  <a href="{% url 'news:index' %}" class="list-group-item list-group-item-action">News</a>
+  <a href="{% url 'news:topics_list' %}" class="list-group-item list-group-item-action">Topics</a>
+  <a href="{% url 'news:redactors_list' %}" class="list-group-item list-group-item-action">Redactors</a>
+</div>

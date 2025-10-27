@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.template.defaulttags import querystring
 from django.urls import reverse_lazy
 from django.views import generic
 

@@ -3,48 +3,52 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from .forms import RedactorsCreateForm
-from .models import *
+from .models import (Newspaper,
+                     Topics,
+                     Redactor)
+
 
 class NewsListView(generic.ListView):
     model = Newspaper
-    template_name = 'news/index.html'
-    context_object_name = 'newspapers'
+    template_name = "news/index.html"
+    context_object_name = "newspapers"
     paginate_by = 5
 
     def get_queryset(self):
-        q = self.request.GET.get('q')
+        q = self.request.GET.get("q")
         if q:
             return Newspaper.objects.filter(title__icontains=q)
         return Newspaper.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['q'] = self.request.GET.get('q','')
+        context["q"] = self.request.GET.get("q", "")
         return context
 
 
 class NewsCreateView(LoginRequiredMixin, generic.CreateView):
     model = Newspaper
-    fields = '__all__'
-    template_name = 'news/newspaper_form.html'
-    success_url = reverse_lazy('news:index')
+    fields = "__all__"
+    template_name = "news/newspaper_form.html"
+    success_url = reverse_lazy("news:index")
 
 
 class NewsUpdateView(generic.UpdateView):
     model = Newspaper
-    fields = '__all__'
-    template_name = 'news/newspaper_form.html'
-    success_url = reverse_lazy('news:index')
+    fields = "__all__"
+    template_name = "news/newspaper_form.html"
+    success_url = reverse_lazy("news:index")
+
 
 class NewsDeleteView(generic.DeleteView):
     model = Newspaper
-    template_name = 'news/newspaper_delete_confirm_form.html'
-    success_url = reverse_lazy('news:index')
+    template_name = "news/newspaper_delete_confirm_form.html"
+    success_url = reverse_lazy("news:index")
 
 
 class NewsDetailView(generic.DetailView):
     model = Newspaper
-    template_name = 'news/newspaper_detail.html'
+    template_name = "news/newspaper_detail.html"
 
 
 class TopicsListView(generic.ListView):
@@ -53,47 +57,49 @@ class TopicsListView(generic.ListView):
 
 class TopicsCreateView(generic.CreateView):
     model = Topics
-    fields = '__all__'
-    success_url = reverse_lazy('news:topics_list')
+    fields = "__all__"
+    success_url = reverse_lazy("news:topics_list")
 
 
 class TopicsUpdateView(generic.UpdateView):
     model = Topics
-    fields = '__all__'
-    success_url = reverse_lazy('news:topics_list')
+    fields = "__all__"
+    success_url = reverse_lazy("news:topics_list")
 
 
 class TopicsDeleteView(generic.DeleteView):
     model = Topics
-    template_name = 'news/topics_delete_confirm.html'
-    success_url = reverse_lazy('news:topics_list')
+    template_name = "news/topics_delete_confirm.html"
+    success_url = reverse_lazy("news:topics_list")
 
 
 class TopicsDetailView(generic.DetailView):
     model = Topics
-    context_object_name = 'topics'
+    context_object_name = "topics"
 
 
 class RedactorsListView(generic.ListView):
     model = Redactor
-    template_name = 'news/redactors_list.html'
+    template_name = "news/redactors_list.html"
+
 
 class RedactorsCreateView(generic.CreateView):
     model = Redactor
     form_class = RedactorsCreateForm
-    success_url = reverse_lazy('news:redactors_list')
+    success_url = reverse_lazy("news:redactors_list")
 
 
 class RedactorsUpdateView(generic.UpdateView):
     model = Redactor
-    fields = ('first_name', 'last_name', 'email', 'years_of_experience')
-    success_url = reverse_lazy('news:redactors_list')
+    fields = ("first_name", "last_name", "email", "years_of_experience")
+    success_url = reverse_lazy("news:redactors_list")
+
 
 class RedactorsDeleteView(generic.DeleteView):
     model = Redactor
-    success_url = reverse_lazy('news:redactors_list')
+    success_url = reverse_lazy("news:redactors_list")
 
 
 class RedactorsDetailView(generic.DetailView):
     model = Redactor
-    context_object_name = 'redactor'
+    context_object_name = "redactor"

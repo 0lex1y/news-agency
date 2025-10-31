@@ -1,0 +1,16 @@
+<div class="mb-3">
+  {% if request.user.is_authenticated %}
+    <p>Welcome, {{ request.user.username }}!</p>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-link">Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Login</a>
+  {% endif %}
+</div>
+<div class="list-group">
+  <a href="{% url 'news:index' %}" class="list-group-item list-group-item-action">News</a>
+  <a href="{% url 'news:topics_list' %}" class="list-group-item list-group-item-action">Topics</a>
+  <a href="{% url 'news:redactors_list' %}" class="list-group-item list-group-item-action">Redactors</a>
+</div>

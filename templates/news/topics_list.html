@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Topics{% endblock %}
+
+{% block content %}
+<h1 class="d-flex justify-content-between align-items-center">
+  Topics
+  <a href="{% url 'news:topics_create' %}" class="btn btn-primary">Create Topic</a>
+</h1>
+<hr>
+
+{% if topics_list %}
+  <div class="list-group">
+    {% for topic in topics_list %}
+      <a href="{% url 'news:topics_detail' pk=topic.id %}" class="list-group-item list-group-item-action">
+        {{ topic.name }}
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-warning">No topics found.</div>
+{% endif %}
+
+{% endblock %}
+

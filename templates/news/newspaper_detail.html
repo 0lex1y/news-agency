@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ newspaper.title }}{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+  <div class="card-body">
+    <!-- Заголовок і кнопки -->
+    <h3 class="card-title d-flex justify-content-between align-items-center">
+      {{ newspaper.title }}
+      <span>
+        <a href="{% url 'news:news_update' pk=newspaper.id %}" class="btn btn-sm btn-primary me-2">Update</a>
+        <a href="{% url 'news:news_delete' pk=newspaper.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </span>
+    </h3>
+
+    <!-- Дата та тема -->
+    <p class="text-muted mb-1">
+      Published: {{ newspaper.published_date|date:"d M Y H:i" }} | Topic: {{ newspaper.topic.name }}
+    </p>
+
+    <hr>
+
+    <!-- Контент -->
+    <p class="card-text">{{ newspaper.content }}</p>
+
+  </div>
+</div>
+
+<!-- Можна додати блок схожих новин -->
+{% if similar_news %}
+<div class="mt-4">
+  <h5>Similar News</h5>
+  <ul class="list-group">
+    {% for news in similar_news %}
+      <li class="list-group-item">
+        <a href="{% url 'news:news_detail' pk=news.id %}">{{ news.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}
+

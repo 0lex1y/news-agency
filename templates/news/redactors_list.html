@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Redactors{% endblock %}
+
+{% block content %}
+<h1 class="d-flex justify-content-between align-items-center">
+  All Redactors
+  <a href="{% url 'news:redactors_create' %}" class="btn btn-primary">Create Redactor</a>
+</h1>
+<hr>
+
+{% if redactor_list %}
+  <div class="list-group">
+    {% for redactor in redactor_list %}
+      <a href="{% url 'news:redactors_detail' pk=redactor.id %}" class="list-group-item list-group-item-action">
+        {{ redactor.username }} ({{ redactor.first_name }} {{ redactor.last_name }})
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-warning">No redactors found.</div>
+{% endif %}
+{% endblock %}

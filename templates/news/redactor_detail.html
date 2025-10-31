@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Redactor: {{ redactor.username }}{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h3 class="card-title d-flex justify-content-between align-items-center">
+      {{ redactor.username }}
+      <span>
+        <a href="{% url 'news:redactors_update' pk=redactor.id %}" class="btn btn-sm btn-primary me-2">Update</a>
+        <a href="{% url 'news:redactors_delete' pk=redactor.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </span>
+    </h3>
+
+    <hr>
+
+    <p><strong>Full Name:</strong> {{ redactor.first_name }} {{ redactor.last_name }}</p>
+    <p><strong>Email:</strong> {{ redactor.email }}</p>
+    <p><strong>Years of Experience:</strong> {{ redactor.years_of_experience }}</p>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% if redactor.id %}Update Redactor{% else %}Create Redactor{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>
+  {% if redactor.id %}Update Redactor{% else %}Create Redactor{% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">
+        {% if redactor.id %}Update{% else %}Create{% endif %}
+    </button>
+    <a href="{% url 'news:redactors_list' %}" class="btn btn-secondary mt-2">Cancel</a>
+</form>
+{% endblock %}

@@ -86,12 +86,14 @@ class RedactorsListView(generic.ListView):
 class RedactorsCreateView(generic.CreateView):
     model = Redactor
     form_class = RedactorsCreateForm
+    template_name = "news/redactor_form.html"
     success_url = reverse_lazy("news:redactors_list")
 
 
 class RedactorsUpdateView(generic.UpdateView):
     model = Redactor
-    fields = ("first_name", "last_name", "email", "years_of_experience")
+    form_class = RedactorsCreateForm
+    template_name = "news/redactor_form.html"
     success_url = reverse_lazy("news:redactors_list")
 
 

@@ -33,75 +33,75 @@ class NewsCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("news:index")
 
 
-class NewsUpdateView(generic.UpdateView):
+class NewsUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
     fields = "__all__"
     template_name = "news/newspaper_form.html"
     success_url = reverse_lazy("news:index")
 
 
-class NewsDeleteView(generic.DeleteView):
+class NewsDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Newspaper
     template_name = "news/newspaper_delete_confirm_form.html"
     success_url = reverse_lazy("news:index")
 
 
-class NewsDetailView(generic.DetailView):
+class NewsDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
     template_name = "news/newspaper_detail.html"
 
 
-class TopicsListView(generic.ListView):
+class TopicsListView(LoginRequiredMixin, generic.ListView):
     model = Topics
 
 
-class TopicsCreateView(generic.CreateView):
-    model = Topics
-    fields = "__all__"
-    success_url = reverse_lazy("news:topics_list")
-
-
-class TopicsUpdateView(generic.UpdateView):
+class TopicsCreateView(LoginRequiredMixin, generic.CreateView):
     model = Topics
     fields = "__all__"
     success_url = reverse_lazy("news:topics_list")
 
 
-class TopicsDeleteView(generic.DeleteView):
+class TopicsUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Topics
+    fields = "__all__"
+    success_url = reverse_lazy("news:topics_list")
+
+
+class TopicsDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topics
     template_name = "news/topics_delete_confirm.html"
     success_url = reverse_lazy("news:topics_list")
 
 
-class TopicsDetailView(generic.DetailView):
+class TopicsDetailView(LoginRequiredMixin, generic.DetailView):
     model = Topics
     context_object_name = "topics"
 
 
-class RedactorsListView(generic.ListView):
+class RedactorsListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     template_name = "news/redactors_list.html"
 
 
-class RedactorsCreateView(generic.CreateView):
+class RedactorsCreateView(LoginRequiredMixin, generic.CreateView):
     model = Redactor
     form_class = RedactorsCreateForm
     template_name = "news/redactor_form.html"
     success_url = reverse_lazy("news:redactors_list")
 
 
-class RedactorsUpdateView(generic.UpdateView):
+class RedactorsUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorsCreateForm
     template_name = "news/redactor_form.html"
     success_url = reverse_lazy("news:redactors_list")
 
 
-class RedactorsDeleteView(generic.DeleteView):
+class RedactorsDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("news:redactors_list")
 
 
-class RedactorsDetailView(generic.DetailView):
+class RedactorsDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
     context_object_name = "redactor"
